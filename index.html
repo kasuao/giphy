@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Giphy Homework</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<!-- jumbotron -->
+<div class="jumbotron"><h1 style="text-align: center;">Favorite Giphies</h1></div>
+<!-- Buttons will get dumped here-->
+<div class="panel panel-default">
+  <div class="panel-heading">Click on the buttons to see your gifs:</div>
+  <div class="panel-body" id="buttons-views">
+    
+  </div>
+</div>
+<!-- giphy area. Float left-->
+<div class="panel panel-default left-column">
+  <div class="panel-heading">Your gifs will appear below:</div>
+  <div class="panel-body" id="gif-views">
+    
+  </div>
+</div>
+
+<!-- Input. Float left -->
+<div class="panel panel-default right-column">
+  <div class="panel-heading">Add a Sports Team</div>
+  <div class="panel-body">
+    <!-- button to trigger new gif set -->
+    <input id="add-gifs" class="btn btn-danger" type="submit" name="button" value="Click to add gifs">
+    <input type="text" name="text field" id="topic-input" placeholder="type your topics here.">
+  </div>
+</div>
+
+<!-- end of page elements -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="logic.js"></script>
+</body>
+</html>

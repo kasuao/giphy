@@ -1,0 +1,25 @@
+.panel {
+	margin: 10px;
+}
+
+ .left-column {
+	width: 60%;
+	float: left;
+}
+
+.right-column {
+	width: 30%;
+	float: left;
+	margin-left: 10px;
+}
+
+#topic-input {
+	margin-left: 20px;
+	height: 30px;
+	width: 60%;
+	padding-left: 20px;
+}
+
+.btn .btn-danger {
+	width: 30%;
+}
