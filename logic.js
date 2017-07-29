@@ -63,6 +63,7 @@ $(document).ready(function(){
 			for (var i = 0; i < dataArray.length; i++) {
 				//add a new div in 'gif-views' for gif from giphy to reside 
 				var newDiv = $("<div>");
+				newDiv.attr("style", "border: 1px solid #000;")
 				//add a class to the new div created above
 				newDiv.addClass("newGif");
 				//show and format rating
@@ -77,7 +78,6 @@ $(document).ready(function(){
 				newImg.attr("data-still", dataArray[i].images.fixed_height_still.url);//create data-still attribute in image tag
 				newImg.attr("data-animate", dataArray[i].images.fixed_height.url);//animated state
 				newImg.attr("data-state", "still");
-				newImg.attr("style", "float: left;")
 				newDiv.append(newImg);
 			}
 		});
