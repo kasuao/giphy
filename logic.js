@@ -1,7 +1,9 @@
 // alert("you are connected!");
 $(document).ready(function(){
+	console.log("page is ready!");
 	//initial gif buttons
 	var topics = ["Pittsburgh Steelers", "Golden+State Warriors", "LA Dodgers"]
+	console.log("here is your current array: " + topics);
 	//=======================================================================
 	//function for redering the gif
 	function renderButtons(){
@@ -11,16 +13,15 @@ $(document).ready(function(){
 		for (var i = 0; i < topics.length; i++) {
 			//dynamically create buttons
 			var button = $("<buttons>");
-			//add data-name attribute
+			//add class for these buttons for css manipulation
 			button.attr("data-name", topics[i]);
 			//add bootstrap button class
-			button.attr("class", "btn btn-danger gif");
-			//add space between buttons
-			button.attr("style", "margin-left: 20px;")
+			button.attr("class", "btn btn-success dynamicBtn");
 			//add text to the buttons
 			button.text(topics[i]);
 			//add buttons to the buttons-view div
 			$("#buttons-views").append(button);
+			console.log(button);
 		}
 	}
 	//=======================================================================
@@ -29,10 +30,10 @@ $(document).ready(function(){
 			event.preventDefault();
 			console.log("button is workings");
 			//grabs added gifs from text field
-			var gif = $("topic-input").val();
-			console.log(gif);//well that was undefined
+			var sportTeam = $("added-input").val();
+			console.log(sportTeam);//well that was undefined
 			//pushes added gifs to the topics array
-			topics.push(gif);
+			topics.push(sportTeam);
 			// console.log(topics);//this shows my new button is undefined
 			$("#topic-input").val("");
 			// console.log(topics);//still undefined
@@ -41,21 +42,19 @@ $(document).ready(function(){
 		});
 
 	//=======================================================================
-	//display gif function renders buttons to display appropriate buttons and gifs
+	//display gif to display appropriate buttons and gifs
 	//from giphy.com
 	function displayGifInfo() {
-		var gif = $(this).attr("data-name");
-		var apiKey = "dc6zaTOxFJmzC";
-		//NEEDS TO BE COMPLETED
-		var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + gif + "&api_key=" + apiKey ;
+		var teamName = $(this).attr("data-name");
+		// var apiKey = "dc6zaTOxFJmzC";
+		var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + teamName + "&rating=G&limit=10&api_key=17fc47eaba4b409690e2b088080bb877";
 		//AJAX call for gif button being clicked
 		$.ajax({
+			method: "GET",
 			url: queryURL,
-			method: "GET"
+			
 		})
 		.done(function(response) {
-			// console.log(this.url);
-			// console.log(response);
 
 			var dataArray = response.data;
 
@@ -63,11 +62,9 @@ $(document).ready(function(){
 			for (var i = 0; i < dataArray.length; i++) {
 				//add a new div in 'gif-views' for gif from giphy to reside 
 				var newDiv = $("<div>");
-				newDiv.attr("style", "border: 1px solid #000;")
-				//add a class to the new div created above
-				newDiv.addClass("newGif");
+				newDiv.attr("class", "newGif");
 				//show and format rating
-				var rating = $("<em>").html("Rating: " + dataArray[i].rating);
+				var rating = $("<h2>").html("Rating: " + dataArray[i].rating);
 				console.log(rating);
 				//add rating into newDiv
 				newDiv.append(rating);
@@ -81,9 +78,31 @@ $(document).ready(function(){
 				newDiv.append(newImg);
 			}
 		});
+		//This section is not working for whatever reason. If you look at the console it shows a bunch of
+		//<em> tags which I'm guessing is coming from the "var ratings" line....
 	}
 	//======================================================================================
 	//function to play still gifs
+	function animateGifs(){
+		var state = $(this).find("img").attr("data-state");
+		if (state === "still") {
+			//find the source with the animate state
+			$(this).find("img").attr("src", $(this).find("img").attr("data-animate"));
+			//change the img data-state to animate
+			$(this).find("img").attr("data-state", "animate");
+		}else {
+			//I THINK this is simply saying to keep the data-state as still. Not totally sure just 
+			//followed the previous exercises for pausing gifs.
+			$(this).find("img").attr("src", $(this).find("img").attr("data-still"));
+			$(this).find("img").attr("data-state", "still");
+		}
+	}
+	//Call functions
+	renderButtons();
+
+	$(document).on("click", displayGifInfo);
+
+	$(document).on("click", animateGifs);
 });
 
 
