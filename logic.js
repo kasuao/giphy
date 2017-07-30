@@ -68,8 +68,6 @@ $(document).ready(function(){
 				//show and format rating
 				var rating = $("<em>").html("Rating: " + dataArray[i].rating);
 				console.log(rating);
-				//add rating into newDiv
-				newDiv.append(rating);
 				//add image tags in 'gif-views'
 				var newImg = $("<img>");
 				//adding attributes to the image tags that will be dynamically created
@@ -77,7 +75,12 @@ $(document).ready(function(){
 				newImg.attr("data-still", dataArray[i].images.fixed_height_still.url);//create data-still attribute in image tag
 				newImg.attr("data-animate", dataArray[i].images.fixed_height.url);//animated state
 				newImg.attr("data-state", "still");
+				//add rating into newDiv
+				newDiv.append(rating);
+				newDiv.append("<br>");
+				//add gif to page
 				newDiv.append(newImg);
+				$("#gif-views").prepend(newDiv);
 			}
 		});
 		//This section is not working for whatever reason. If you look at the console it shows a bunch of
