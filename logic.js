@@ -5,7 +5,7 @@ $(document).ready(function(){
 	var topics = ["Pittsburgh Steelers", "Golden+State Warriors", "LA Dodgers"]
 	console.log("here is your current array: " + topics);
 	//=======================================================================
-	//function for redering the gif
+	//function for redering the buttons
 	function renderButtons(){
 		//removes gifs before adding new ones to avoid duplicates
 		$("#buttons-views").empty();
@@ -21,13 +21,13 @@ $(document).ready(function(){
 			button.text(topics[i]);
 			//add buttons to the buttons-view div
 			$("#buttons-views").append(button);
-			console.log(button);
+			// console.log(button);
 		}
 	}
 	//=======================================================================
-		//Way for user to add buttons
+		//This code dictates what happens when the add-gifs button is clicked
 		$("#add-gifs").on("click", function(event){
-			event.preventDefault();
+			// event.preventDefault();
 			console.log("button is workings");
 			//grabs added gifs from text field
 			var sportTeam = $("added-input").val();
@@ -42,12 +42,14 @@ $(document).ready(function(){
 		});
 
 	//=======================================================================
-	//display gif to display appropriate buttons and gifs
+	//display gifs
 	//from giphy.com
 	function displayGifInfo() {
+		console.log("displayGifInfo is working.");//checking if this function is running
 		var teamName = $(this).attr("data-name");
-		// var apiKey = "dc6zaTOxFJmzC";
+		// data-name 
 		var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + teamName + "&rating=G&limit=10&api_key=17fc47eaba4b409690e2b088080bb877";
+		console.log(queryURL);
 		//AJAX call for gif button being clicked
 		$.ajax({
 			method: "GET",
@@ -64,7 +66,7 @@ $(document).ready(function(){
 				var newDiv = $("<div>");
 				newDiv.attr("class", "newGif");
 				//show and format rating
-				var rating = $("<h2>").html("Rating: " + dataArray[i].rating);
+				var rating = $("<em>").html("Rating: " + dataArray[i].rating);
 				console.log(rating);
 				//add rating into newDiv
 				newDiv.append(rating);
@@ -97,6 +99,8 @@ $(document).ready(function(){
 			$(this).find("img").attr("data-state", "still");
 		}
 	}
+
+	//=========================================================================
 	//Call functions
 	renderButtons();
 
