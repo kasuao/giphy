@@ -2,17 +2,18 @@
 $(document).ready(function(){
 	console.log("page is ready!");
 	//initial gif buttons
-	var topics = ["Pittsburgh Steelers", "Golden+State Warriors", "LA Dodgers"]
+	var topics = ["Pittsburgh Steelers", "Golden State Warriors", "LA Dodgers"]
 	console.log("here is your current array: " + topics);
 	//=======================================================================
 	//function for redering the buttons
 	function renderButtons(){
 		//removes gifs before adding new ones to avoid duplicates
+		console.log('I have rendered')
 		$("#buttons-views").empty();
 		//loops through topics array
 		for (var i = 0; i < topics.length; i++) {
 			//dynamically create buttons
-			var button = $("<buttons>");
+			var button = $("<button>");
 			//add class for these buttons for css manipulation
 			button.attr("data-name", topics[i]);
 			//add bootstrap button class
@@ -30,25 +31,31 @@ $(document).ready(function(){
 			// event.preventDefault();
 			console.log("button is workings");
 			//grabs added gifs from text field
-			var sportTeam = $("added-input").val();
+			var sportTeam = $("#added-input").val();
 			console.log(sportTeam);//well that was undefined
 			//pushes added gifs to the topics array
 			topics.push(sportTeam);
 			// console.log(topics);//this shows my new button is undefined
-			$("#topic-input").val("");
+			$("#added-input").val("");
+			console.log(topics);
 			// console.log(topics);//still undefined
 			//calls the renderButtons function
 			renderButtons();
+			$(".dynamicBtn").on("click", function () {
+			var teamName = $(this).attr("data-name");
+			displayGifInfo(teamName);	
+	});
 		});
 
 	//=======================================================================
 	//display gifs
 	//from giphy.com
-	function displayGifInfo() {
+	function displayGifInfo(MyteamName) {
 		console.log("displayGifInfo is working.");//checking if this function is running
-		var teamName = $(this).attr("data-name");
+		
+		console.log(MyteamName);
 		// data-name 
-		var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + teamName + "&rating=G&limit=10&api_key=17fc47eaba4b409690e2b088080bb877";
+		var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + MyteamName + "&rating=G&limit=10&api_key=17fc47eaba4b409690e2b088080bb877";
 		console.log(queryURL);
 		//AJAX call for gif button being clicked
 		$.ajax({
@@ -80,6 +87,8 @@ $(document).ready(function(){
 				newDiv.append("<br>");
 				//add gif to page
 				newDiv.append(newImg);
+				//after all that time this was the line that I didn't realize actually
+				//added the gifs to the page ughhhhhh!
 				$("#gif-views").prepend(newDiv);
 			}
 		});
@@ -107,9 +116,13 @@ $(document).ready(function(){
 	//Call functions
 	renderButtons();
 
-	$(document).on("click", displayGifInfo);
+	$(".dynamicBtn").on("click", function () {
 
-	$(document).on("click", animateGifs);
+		var teamName = $(this).attr("data-name");
+		displayGifInfo(teamName);	
+	});
+
+	// $(document).on("click", animateGifs);
 });
 
 
